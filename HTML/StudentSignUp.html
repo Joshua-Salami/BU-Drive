@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud-Based E-Learning Platform for Babcock Students </title>
+    <link rel="stylesheet" href="../CSS/SignpUp.css">
+
+</head>
+<body>
+    <div class="Container"> 
+        <h2> Welcome to BU-Drive </h2>
+        <p class="subtitle"> One place for everything. </p>
+        
+        <form id="SignUp-form">
+            <input type="text" id="fullname" placeholder="Full Name (Surname + Firstname)" required> <br>
+            <input type="email" id="email" placeholder="Email" required> <br>
+
+            <select id="Course" name="Course">
+                <option value="" disabled selected> Select Course of Study</option>
+                <option value="CS"> Computer Science (CS)</option>
+                <option value="IT"> Information Technology (IT) </option>
+                <option value="CT"> Computer Technology (CT) </option>
+            </select> <br>
+
+            <select id="Level" name="Level">
+                <option value="" disabled selected> Select Level </option>
+                <option value="100L"> 100L </option>
+                <option value="200L"> 200L </option>
+                <option value="300L"> 300L </option>
+                <option value="400L"> 400L </option>
+            </select> <br>
+
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Password" required>
+                <img src="../Images/hide.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword()">
+            <div class="password-container">
+                <input type="confirm-password" id="confirm-password" placeholder="Confirm Password" required>
+                <img src="../Images/hide.png" alt="Toggle Password" class="eye-icon" onclick="togglePassword()">
+            </div>         
+    </div>
+    <p class="terms"> Already have an account? <a href="LoginPage.html"> Log In </a></p>
+    <button type="submit"> Sign up </button>
+    <p class="terms"> By continuing, you agree to the <a href="#"> Terms and Conditions</a>. Read our <a href="#"> Privacy Policy</a>.</p> <br>
+        
+    </form>
+
+    <script src="../JS/function.js"></script>
+</body>
+</html>
