@@ -24,11 +24,25 @@ body {
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    justify-content: center;
+}
+
+.logo a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.75rem;
+}
+
+.logo img {
+    height: 1.5rem;
+}
+
+.notifications img {
+    height: 1.5rem;
 }
 
 .container {
@@ -195,6 +209,10 @@ input#search {
     font-size: 0.9rem;
 }
 
+.navigation a img {
+    height: 1.75rem;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     .weekly-polls,
@@ -207,7 +225,22 @@ input#search {
         padding: 1rem;
     }
 
+    .logo a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 1.3rem;
+    }
+
+    .logo img {
+        height: 1.2rem;
+    }
+
     .navigation {
-        padding: 0.5rem;
+        padding: 0.5rem 0.5rem 0rem 0.5rem;
+    }
+
+    .navigation a img {
+        height: 1.25rem;
     }
 }
