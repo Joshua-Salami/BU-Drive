@@ -43,7 +43,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud-Based E-Learning Platform for Babcock Students </title>
-    <link rel="stylesheet" href="CSS/MyCourses.css">
+    <link rel="stylesheet" href="CSS/Homepage.css">
 
 </head>
 <body>
@@ -54,7 +54,7 @@
 
     <div class="container">
         <?php
-            if ($role == 'Admin') echo '<div>
+            if ($role == 'Admin') echo '<div style= "margin-top: 100Px">
                                             <h2> Admin Details </h2>
                                             <div>
                                                 <p>Name: '.$adminFullName.'</p>
@@ -64,7 +64,7 @@
                                         <a href="CreateResource.php"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Create Resource</button></a>
                                         <a href="UpdateAdminAccount.php?updateId=' . $adminId . '"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Update Account</button></a>';
             
-            if ($role == 'Student') echo '<div>
+            if ($role == 'Student') echo '<div style= "margin-top: 100px">
                                             <h2> Student Details </h2>
                                             <div>
                                                 <p>Name: '.$studentFullName.'</p>
@@ -74,7 +74,8 @@
                                             </div>
                                         </div>
                                         <a href="UpdateStudentAccount.php?updateId=' . $studentId . '"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Update Account</button></a>
-                                        <a href="CreatePost.php"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Create Post</button></a>';
+                                        <a href="CreatePost.php"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Create Post</button></a>
+                                        <a href="CreatePoll.php"><button style="padding: 10px; border-radius: 10px; width: 25%; background-color: #007bff;">Create Poll</button></a>';
         
         ?>
 
@@ -88,10 +89,19 @@
         <?php 
             if($role == 'Student'){
         ?>
-            <h2 class="section-title">Blog</h2>
-            <section>
+            <div id="buttons" style="width: 100%; display: flex; justify-content: center">
+                <button id= "blogsSectionBtn" class="btn" style="background-color: light green; margin-top: 20px; margin-right: 20px">Blogs</button>
+                <button id= "pollsSectionBtn" class="btn" style="background-color: light green; margin-top: 20px">Polls</button>
+            </div>
+        <?php }?>
+
+        <?php 
+            if($role == 'Student'){
+        ?>
+            <section id="blogsSection">
+                <h2 class="section-title">Blog</h2>
                 <?php
-                    $getPosts = "SELECT * FROM posts ORDER BY creationDate DESC";
+                    $getPosts = "SELECT * FROM posts WHERE studentId = $studentId ORDER BY creationDate DESC";
                     $getPostsResult = mysqli_query($conn, $getPosts);
                 
                     if ($getPostsResult && mysqli_num_rows($getPostsResult) > 0) {
@@ -123,21 +133,91 @@
                                                 <div class="blog-meta">
                                                     <p>By '.$studentFullName.' on ' . $formattedDate . '</p>
                                                 </div>
+                                                <div style="display: flex; justify-content: space-between; margin: 10px 0px">
+                                                     <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a>
+                                                    <a href="EditPost.php?postId=' . $postId . '"><button class="btn">Edit Post</button></a>
+                                                    <a href="DeletePost.php?postId=' . $postId . '"><button class="btn" style="background-color: red;">Delete Post</button></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a>
-                                    <a href="EditPost.php?postId=' . $postId . '"><button class="btn">Edit Post</button></a>
-                                    <a href="DeletePost.php?postId=' . $postId . '"><button class="btn" style="background-color: red;">Delete Post</button></a>';
+                                    </div>';
                         }
                     }else {
                         echo "<p style='color: white; font-weight: bold; background-color: #007bff;'>No Posts available.</p>";
                     }
                 ?>
             </section>
+
+            <section id="pollsSection">
+                <h2 class="section-title">Poll</h2>
+                <?php
+                    $getPolls = "SELECT * FROM polls WHERE studentId = $studentId";
+                    $getPollsResult = mysqli_query($conn, $getPolls);
+                
+                    if ($getPollsResult && mysqli_num_rows($getPollsResult) > 0) {
+                        while ($row = mysqli_fetch_assoc($getPollsResult)) {
+                            $studentId = $row['studentId'];
+                            $pollId = $row['pollId'];
+                            $pollTitle = htmlspecialchars($row['pollTitle']);
+                            $option1 = htmlspecialchars($row['option1']);
+                            $option2 = htmlspecialchars($row['option2']);
+
+                            $creationDate = new DateTime($row['creationDate']);
+                            $formattedDate = htmlspecialchars($creationDate->format('Y-m-d'));
+                            $formattedDate = htmlspecialchars(date('Y-m-d', strtotime($row['creationDate'])));
+
+                            $option1Vote = "SELECT COUNT(*) as count FROM votes WHERE pollId = $pollId AND option1 = 1";
+                            $option1VoteResult = mysqli_query($conn, $option1Vote);
+                            $amountOfOption1Vote = 0;
+                            if ($option1VoteResult) {
+                                $row = mysqli_fetch_assoc($option1VoteResult);
+                                $amountOfOption1Vote = $row['count'];
+                            }
+                            else{
+                                $amountOfOption1Vote = 0;
+                            }
+
+                            $option2Vote = "SELECT COUNT(*) as count FROM votes WHERE pollId = $pollId AND option2 = 1";
+                            $option2VoteResult = mysqli_query($conn, $option2Vote);
+                            $amountOfOption2Vote = 0;
+                            if ($option2VoteResult) {
+                                $row = mysqli_fetch_assoc($option2VoteResult);
+                                $amountOfOption2Vote = $row['count'];
+                            }
+                            else{
+                                $amountOfOption2Vote = 0;
+                            }
+                                
+                            echo '
+                                    <div class="poll-card" style="width: 100%">
+                                        <h2 class="section-title">'.$pollTitle.'</h2>
+                                        <div class="poll-header">
+                                            <div class="poll-icon">📊</div>
+                                            <div>
+                                                <div style="display: flex; margin-bottom: 40px; justify-content: space-between; width: 100%">
+                                                    <div style="display: flex; flex-direction: column; margin-right: 300px">
+                                                        <p>' . $option1 . '</p>
+                                                        <p>Votes: ' . $amountOfOption1Vote . '</p>
+                                                    </div>
+                                                    <div style="display: flex; flex-direction: column">
+                                                        <p>' . $option2 . '</p>
+                                                        <p>Votes: ' . $amountOfOption2Vote . '</p>
+                                                    </div>
+                                                </div>
+                                                <p class="poll-stats">Created on: ' . $formattedDate . '</p>
+                                                <a href="DeletePoll.php?pollId=' . $pollId . '"><button class="btn" style="background-color: red;margin-top: 20px">Delete Poll</button></a>
+                                            </div>
+                                        </div>
+                                    </div>';
+                        }
+                    }else {
+                        echo "<p style='color: white; font-weight: bold; background-color: #007bff;'>No Polls available.</p>";
+                    }
+                ?>
+            </section>
         <?php }?>
 
-        <a href="Logout.php"><button style="width: 100%; background-color: green; margin-bottom: 40px;">Logout</button></a>
+        <a href="Logout.php"><button style="width: 100%; background-color: green; margin-bottom: 40px; margin-top: 50px">Logout</button></a>
 
     </div>
     <nav class="navigation">
@@ -243,6 +323,27 @@
 
         RetrieveData();
 
+    </script>
+<?php }?>
+<?php if($role == "Student"){?>
+    <script>
+        let blogsSection = document.getElementById("blogsSection")
+        let pollsSection = document.getElementById("pollsSection")
+        let blogsBtn = document.getElementById("blogsSectionBtn")
+        let pollsBtn = document.getElementById("pollsSectionBtn")
+
+        pollsSection.style.display = "none"
+        blogsSection.style.display = "block"
+
+        blogsBtn.addEventListener("click", function(){
+            pollsSection.style.display = "none"
+            blogsSection.style.display = "block"
+        })
+
+        pollsBtn.addEventListener("click", function(){
+            pollsSection.style.display = "block"
+            blogsSection.style.display = "none"
+        })
     </script>
 <?php }?>
     <script src="JS/function.js"> </script>
