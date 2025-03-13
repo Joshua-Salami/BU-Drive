@@ -25,6 +25,7 @@
         <section>
             <h2 class="section-title">Weekly Poll</h2>
             <div class="weekly-polls">
+<<<<<<< Updated upstream
                 <?php
                     $getPolls = "SELECT * FROM polls ORDER BY creationDate DESC LIMIT 6";
                     $getPollsResult = mysqli_query($conn, $getPolls);
@@ -56,6 +57,28 @@
                         echo "<p style='color: white; font-weight: bold; background-color: #007bff;'>No Polls available.</p>";
                     }
                 ?>
+=======
+                <div class="poll-card">
+                    <div class="poll-header">
+                        <div class="poll-icon"><img src="../Icons/poll.png" alt="Poll icon"></div>
+                        <div>
+                            <h3>What's your favorite way to study?</h3>
+                            <p class="poll-stats">2d left</p>
+                        </div>
+                    </div>
+                    <button class="btn">View Poll</button>
+                </div>
+                <div class="poll-card">
+                    <div class="poll-header">
+                    <div class="poll-icon"><img src="/Icons/poll.png" alt="Poll icon"></div>
+                        <div>
+                            <h3>What's your favorite course this semester?</h3>
+                            <p class="poll-stats">2d left</p>
+                        </div>
+                    </div>
+                    <button class="btn">View Poll</button>
+                </div>
+>>>>>>> Stashed changes
             </div>
         </section>
 
@@ -136,7 +159,7 @@
         </section>
             
     </div>
-
+    
     <nav class="navigation">
         <a href="Homepage.php" class="nav-item">
             <img src="Icons/house.fill.png" alt="Profile icon">
