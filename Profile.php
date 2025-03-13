@@ -48,8 +48,8 @@
 </head>
 <body>
 <header class="header">
-        <div class="logo"><a href="../HTML/homepage.html">BU-Drive <img src="../Icons/externaldrive.fill.badge.icloud.png" alt="logo"></a></div>
-        <div class="notifications"><a href="#"><img src="../Icons/bell.png" alt="Notifications icon"></a></div>
+        <div class="logo"><a href="#">BU-Drive <img src="Icons/externaldrive.fill.badge.icloud.png" alt="logo"></a></div>
+        <div class="notifications"><a href="#"><img src="Icons/bell.png" alt="Notifications icon"></a></div>
     </header>
 
     <div class="container">
@@ -98,8 +98,10 @@
         <?php 
             if($role == 'Student'){
         ?>
+
+            <h2 class="section-title">Blog</h2>
             <section id="blogsSection">
-                <h2 class="section-title">Blog</h2>
+                <div class="blog-posts">
                 <?php
                     $getPosts = "SELECT * FROM posts WHERE studentId = $studentId ORDER BY creationDate DESC";
                     $getPostsResult = mysqli_query($conn, $getPosts);
@@ -125,19 +127,17 @@
                             }
 
                             echo '
-                                    <div class="blog-posts">
-                                        <div class="blog-card">
-                                            <img src="'.$image.'" alt="Remote learning" class="blog-image">
-                                            <div class="blog-content">
-                                                <h3>' . $postTitle . '</h3>
-                                                <div class="blog-meta">
-                                                    <p>By '.$studentFullName.' on ' . $formattedDate . '</p>
-                                                </div>
-                                                <div style="display: flex; justify-content: space-between; margin: 10px 0px">
-                                                     <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a>
-                                                    <a href="EditPost.php?postId=' . $postId . '"><button class="btn">Edit Post</button></a>
-                                                    <a href="DeletePost.php?postId=' . $postId . '"><button class="btn" style="background-color: red;">Delete Post</button></a>
-                                                </div>
+                                    <div class="blog-card">
+                                        <img src="'.$image.'" alt="Remote learning" class="blog-image">
+                                        <div class="blog-content">
+                                            <h3>' . $postTitle . '</h3>
+                                            <div class="blog-meta">
+                                                <p>By '.$studentFullName.' on ' . $formattedDate . '</p>
+                                            </div>
+                                            <div style="display: flex; justify-content: space-between; margin: 10px 0px">
+                                                    <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a>
+                                                <a href="EditPost.php?postId=' . $postId . '"><button class="btn">Edit Post</button></a>
+                                                <a href="DeletePost.php?postId=' . $postId . '"><button class="btn" style="background-color: red;">Delete Post</button></a>
                                             </div>
                                         </div>
                                     </div>';
@@ -146,6 +146,7 @@
                         echo "<p style='color: white; font-weight: bold; background-color: #007bff;'>No Posts available.</p>";
                     }
                 ?>
+                </div>
             </section>
 
             <section id="pollsSection">
@@ -222,19 +223,19 @@
     </div>
    
     <nav class="navigation">
-        <a href="../HTML/homepage.html" class="nav-item">
-            <img src="../Icons/house.fill.png" alt="Profile icon">
+        <a href="Homepage.php" class="nav-item">
+            <img src="Icons/house.fill.png" alt="Profile icon">
             <span>Home</span>
-        <a href="../HTML/Resources.html" class="nav-item">
-            <img src="../Icons/folder.png" alt="Profile icon">
+        <a href="Resources.html" class="nav-item">
+            <img src="Icons/folder.png" alt="Profile icon">
             <span>Resources</span>
         </a>
-        <a href="../HTML/MyCourses.html" class="nav-item">
-            <img src="../Icons/my courses.png" alt="Profile icon">
+        <a href="Semester.html" class="nav-item">
+            <img src="Icons/my courses.png" alt="Profile icon">
             <span>My Courses</span>
         </a>
-        <a href="../HTML/Profile.html" class="nav-item">
-            <img src="../Icons/profile.png" alt="Profile icon">
+        <a href="Profile.php" class="nav-item">
+            <img src="Icons/profile.png" alt="Profile icon">
             <span>Profile</span>
         </a>
     </nav>

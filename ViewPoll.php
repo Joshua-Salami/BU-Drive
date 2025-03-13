@@ -15,8 +15,8 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo"> BU-Drive 🚗 </div>
-        <div class="notifications"> 🔔 </div>
+        <div class="logo"><a href="#">BU-Drive <img src="Icons/externaldrive.fill.badge.icloud.png" alt="logo"></a></div>
+        <div class="notifications"><a href="#"><img src="Icons/bell.png" alt="Notifications icon"></a></div>
     </header>
 
     <div class="container">
@@ -68,12 +68,12 @@
                                                 <div style="display: flex; margin-bottom: 40px; justify-content: space-between; width: 100%">
                                                     <div style="display: flex; flex-direction: column; margin-right: 300px">
                                                         <p>' . $option1 . '</p>
-                                                        <a href="PollVotingOption1.php?pollId=' . $pollId . '"><button class="btn">Vote</button></a></br>
+                                                        <a href="PollVotingOption1.php?pollId=' . $pollId . '"><button class="btn" id="option1">Vote</button></a></br>
                                                         <p>Votes: ' . $amountOfOption1Vote . '</p>
                                                     </div>
                                                     <div style="display: flex; flex-direction: column">
                                                         <p>' . $option2 . '</p>
-                                                        <a href="PollVotingOption2.php?pollId=' . $pollId . '"><button class="btn">Vote</button></a></br>
+                                                        <a href="PollVotingOption2.php?pollId=' . $pollId . '"><button class="btn" id="option2">Vote</button></a></br>
                                                         <p>Votes: ' . $amountOfOption2Vote . '</p>
                                                     </div>
                                                 </div>
@@ -85,6 +85,16 @@
                     }else {
                         echo "<p style='color: white; font-weight: bold; background-color: #007bff;'>No Polls available.</p>";
                     }
+
+                    $option1VoteForStudent = "SELECT * FROM votes WHERE pollId = $pollId AND studentId = $studentId";
+                    $option1VoteForStudentResult = mysqli_query($conn, $option1VoteForStudent);
+
+                    if ($option1VoteForStudentResult && mysqli_num_rows($option1VoteForStudentResult) > 0) {
+                        while ($row = mysqli_fetch_assoc($option1VoteForStudentResult)) {
+                            $option1ForStudent = htmlspecialchars($row['option1']);
+                            $option2ForStudent = htmlspecialchars($row['option2']);
+                        }
+                    }
                 ?>
             </div>
         </section>
@@ -92,24 +102,37 @@
 
     <nav class="navigation">
         <a href="Homepage.php" class="nav-item">
-            🏠
+            <img src="Icons/house.fill.png" alt="Profile icon">
             <span>Home</span>
         <a href="Resources.html" class="nav-item">
-            📚
+            <img src="Icons/folder.png" alt="Profile icon">
             <span>Resources</span>
         </a>
-        <a href="SelectSem.html" class="nav-item">
-            🎓
+        <a href="Semester.html" class="nav-item">
+            <img src="Icons/my courses.png" alt="Profile icon">
             <span>My Courses</span>
         </a>
         <a href="Profile.php" class="nav-item">
-            👤
+            <img src="Icons/profile.png" alt="Profile icon">
             <span>Profile</span>
         </a>
     </nav>
 </body>
 </html>
     <script src="JS/function.js"> </script>
+    <script>
+        let option1 = document.getElementById("option1")
+        let option2 = document.getElementById("option2")
 
+        <?php if($option1ForStudent == 1){?>
+            option1.style.backgroundColor = "green"
+            option2.style.backgroundColor = "#007bff"
+        <?php }?>
+
+        <?php if($option2ForStudent == 1){?>
+            option1.style.backgroundColor = "#007bff"
+            option2.style.backgroundColor = "green"
+        <?php }?>
+    </script>
 </body>
 </html>

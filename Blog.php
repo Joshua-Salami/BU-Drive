@@ -15,8 +15,8 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo"> BU-Drive 🚗 </div>
-        <div class="notifications"> 🔔 </div>
+        <div class="logo"><a href="#">BU-Drive <img src="Icons/externaldrive.fill.badge.icloud.png" alt="logo"></a></div>
+        <div class="notifications"><a href="#"><img src="Icons/bell.png" alt="Notifications icon"></a></div>
     </header>
 
     <div class="container">
@@ -29,6 +29,7 @@
 
     <h2 class="section-title">Blogs</h2>
     <section>
+        <div class="blog-posts">
         <?php 
             if (isset($_GET['search']) && !empty($_GET['search'])) { 
                 include 'connect.php';
@@ -54,16 +55,14 @@
                             $studentFullName = htmlspecialchars($student['fullName']);
                         }
                         ?>
-                        <div class="blog-posts">
-                            <div class="blog-card">
-                                <img src="<?= $image ?>" alt="Blog Image" class="blog-image">
-                                <div class="blog-content">
-                                    <h3><?= htmlspecialchars($blogDetail['postTitle']); ?></h3>
-                                    <div class="blog-meta">
-                                        <p>By <?= $studentFullName ?> on <?= $formattedDate ?></p>
-                                    </div>
-                                    <a href="ReadPost.php?postId=<?= $postId ?>"><button class="btn">Read More</button></a>
+                        <div class="blog-card">
+                            <img src="<?= $image ?>" alt="Blog Image" class="blog-image">
+                            <div class="blog-content">
+                                <h3><?= htmlspecialchars($blogDetail['postTitle']); ?></h3>
+                                <div class="blog-meta">
+                                    <p>By <?= $studentFullName ?> on <?= $formattedDate ?></p>
                                 </div>
+                                <a href="ReadPost.php?postId=<?= $postId ?>"><button class="btn">Read More</button></a>
                             </div>
                         </div>
                         <?php
@@ -101,16 +100,14 @@
                         }
 
                         echo '
-                                <div class="blog-posts">
-                                    <div class="blog-card">
-                                        <img src="'.$image.'" alt="Remote learning" class="blog-image">
-                                        <div class="blog-content">
-                                            <h3>' . $postTitle . '</h3>
-                                            <div class="blog-meta">
-                                                <p>By '.$studentFullName.' on ' . $formattedDate . '</p>
-                                            </div>
-                                                <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a></br>
+                                <div class="blog-card">
+                                    <img src="'.$image.'" alt="Remote learning" class="blog-image">
+                                    <div class="blog-content">
+                                        <h3>' . $postTitle . '</h3>
+                                        <div class="blog-meta">
+                                            <p>By '.$studentFullName.' on ' . $formattedDate . '</p>
                                         </div>
+                                            <a href="ReadPost.php?postId=' . $postId . '"><button class="btn">Read More</button></a></br>
                                     </div>
                                 </div>';
                     }
@@ -119,24 +116,25 @@
                 }
             }
         ?>
+        </div>
         
     </section>
     </div>
 
     <nav class="navigation">
         <a href="Homepage.php" class="nav-item">
-            🏠
+            <img src="Icons/house.fill.png" alt="Profile icon">
             <span>Home</span>
         <a href="Resources.html" class="nav-item">
-            📚
+            <img src="Icons/folder.png" alt="Profile icon">
             <span>Resources</span>
         </a>
-        <a href="SelectSem.html" class="nav-item">
-            🎓
+        <a href="Semester.html" class="nav-item">
+            <img src="Icons/my courses.png" alt="Profile icon">
             <span>My Courses</span>
         </a>
         <a href="Profile.php" class="nav-item">
-            👤
+            <img src="Icons/profile.png" alt="Profile icon">
             <span>Profile</span>
         </a>
     </nav>
